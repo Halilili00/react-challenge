@@ -2,13 +2,11 @@ import React from 'react'
 import { hot } from 'react-hot-loader'
 import { Provider, useDispatch } from 'react-redux'
 import { createStore } from 'redux'
-import { Container } from '@material-ui/core'
+import { Container } from '@mui/material'
 
 import reducer from '../reducer'
 import UserInputsTable from './UserInputsTable'
 import UserInputForm from './UserInputForm'
-import { addUserInputs } from '../actions'
-import { Dispatch } from 'redux'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 

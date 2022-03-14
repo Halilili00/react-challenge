@@ -1,6 +1,6 @@
 import { Iinputs } from "./Interface"
 
-export interface Action {type: string, payload: any}
+export interface Action {type: any, payload: any}
 
 export const setName = (payload: string) => ({
   type: 'name-set',
@@ -32,8 +32,4 @@ export const addNewId = () => ({
 export const deleteInput = (payload: number) => ({
   type: 'input-delete',
   payload
-})
-
-export const setAnchorEl = () => ({
-  type: 'AnchorEl-set',
 })

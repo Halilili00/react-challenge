@@ -1,16 +1,26 @@
-import React, {ChangeEvent} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Button, TableRow,Table,TableHead,TableBody, TableCell} from '@material-ui/core'
+import { TableRow,Table,TableHead,TableBody, TableCell} from '@mui/material'
 
 import { Iinputs } from "../Interface"
 import { ApplicationState } from '../reducer'
 import UserInput from './UserInput'
 import { deleteInput } from '../actions'
+import { makeStyles } from '@material-ui/core'
+
+const useStyles = makeStyles((theme) => ({
+  userInputTable: {
+    marginTop:'25px'
+  },
+  tableHeader: {
+    backgroundColor: '#ECECEC',
+  }
+}))
 
 interface Props {
-    allInputs: Iinputs[]
-    dispatch: Dispatch,
+  allInputs: Iinputs[]
+  dispatch: Dispatch,
 }
 
 const UserInputTable = ({allInputs, dispatch}: Props) => {
@@ -18,22 +28,26 @@ const UserInputTable = ({allInputs, dispatch}: Props) => {
   const remove = (idTodelete: number) => {
     dispatch(deleteInput(idTodelete));
   }
+
+  const classes = useStyles();
+
     return(
-        <>
-        <Table size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Description</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {allInputs.map((input) => {
-            return <UserInput key={input.id} input={input} remove={remove}></UserInput>
-          })}
-        </TableBody>
-      </Table>
-        </>
+      <>
+        <Table size='medium' className={classes.userInputTable}>
+          <TableHead className={classes.tableHeader}>
+            <TableRow className={classes.tableHeaderRow}>
+              <TableCell variant='head'>Name</TableCell>
+              <TableCell variant='head'>Description</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody className='tableBody'>
+            {allInputs.map((input) => {
+              return <UserInput key={input.id} input={input} remove={remove}></UserInput>
+            })}
+          </TableBody>
+        </Table>
+      </>
     )
 }
 

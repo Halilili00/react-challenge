@@ -36,8 +36,6 @@ export default function reducer (
       return {...state, inputs: [...state.inputs, action.payload]}
     case 'input-delete':
       return {...state, inputs: [...state.inputs.filter(input => input.id !== action.payload)]}
-    /*case 'selectedDetail':
-      return {...state, selectedInput: action.payload}*/
     default:
       return state
   }
