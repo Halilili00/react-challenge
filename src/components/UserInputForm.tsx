@@ -6,19 +6,7 @@ import { Button, Typography, Grid, TextField, Box} from '@mui/material'
 import { setName, setDescription, setComment ,setClearInputs, addUserInputs, addNewId} from '../actions'
 import { ApplicationState } from '../reducer'
 import { Iinputs } from '../Interface'
-import { makeStyles } from '@material-ui/core'
-
-const useStyles = makeStyles((theme) => ({
-    container: {
-        backgroundColor: "#ECECEC",
-    },
-    btn: {
-        background: "#ffffff"
-    },
-    input: {
-        backgroundColor: "#ffffff"
-    }
-}))
+import  useStyles  from '../styles.css'
 
 interface Props {
     name: string,
@@ -27,7 +15,6 @@ interface Props {
     dispatch: Dispatch,
     id: number
 }
-
 
 const UserInputForm = ({id, name, description, comment, dispatch}: Props) => {
 
@@ -59,16 +46,8 @@ const UserInputForm = ({id, name, description, comment, dispatch}: Props) => {
 
     return (
         <>
-            <Box
-                sx={{
-                width: '100%',
-                height: '40%',
-                borderColor: '#C0C0C0',
-                border: '1px solid',
-                borderRadius: '5px',
-                }} mt={4} className={classes.container}>
-                    <div>
-                    <Grid container spacing={2} justifyContent="right">
+            <Box mt={4} className={classes.container}>
+                <Grid container spacing={2} justifyContent="right">
                     <Grid item mt={3}>
                         <Typography variant='h6'><Box sx={{color: 'text.secondary', m: 1,}}>Name</Box></Typography>
                     </Grid>
@@ -93,8 +72,7 @@ const UserInputForm = ({id, name, description, comment, dispatch}: Props) => {
                     <Grid item mr={2} mb={2}>
                         <Button color="inherit" className={classes.btn} variant="contained" onClick={addInputs}>Add</Button>
                     </Grid>
-                </Grid>
-                    </div>
+                </Grid>               
             </Box>
         </>
     )

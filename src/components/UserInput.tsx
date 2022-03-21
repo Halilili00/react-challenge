@@ -1,41 +1,28 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Button,TableHead,TableBody, TableCell, TableRow, Popover, Table } from '@mui/material'
+import { Button,TableHead,TableBody, TableCell, TableRow, Box, Modal } from '@mui/material'
 
 import { Iinputs } from "../Interface"
-import { ApplicationState } from '../reducer'
-import { makeStyles } from '@material-ui/core'
-
-const useStyles = makeStyles((theme) => ({
-    btn: {
-        background: "#ffffff"
-    },
-    tableHeader: {
-        backgroundColor: '#ECECEC',
-    },
-    detailTable: {
-        width: '350px'
-    }
-}))
+import  useStyles  from '../styles.css'
 
 interface Props{
     input: Iinputs,
-    remove(idTodelete: number):void,
+    remove(idTodelete: string):void,
+    dispatch: Dispatch,
 }
 
 const UserInput = ({input, remove }:Props) => {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [inputDetail, setinputDetail] = React.useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
+        setinputDetail(event.currentTarget);
     };
   
     const handleClose = () => {
-      setAnchorEl(null);
+        setinputDetail(null);
     };
   
-    const open = Boolean(anchorEl);
+    const open = Boolean(inputDetail);
     const id = open ? 'simple-popover' : undefined;
 
     const classes = useStyles();
@@ -49,21 +36,9 @@ const UserInput = ({input, remove }:Props) => {
                     <Button sx={{marginRight: '15px'}} color="inherit" className={classes.btn} variant='contained' onClick={()=>remove(input.id)}>Delete</Button>
                     <Button color="inherit" className={classes.btn} aria-describedby={id} variant="contained" onClick={handleClick}>Detail</Button>
                 </TableCell>
-                <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'left',
-                    }}
-                >
-                        <Table className={classes.detailTable}>
+                <Modal open={open} onClose={handleClose}>
+                    <Box className={classes.detailBox}>
+                        <TableRow className={classes.detailTable}>
                             <TableHead className={classes.tableHeader}>
                                 <TableRow>
                                 <TableCell width='10%'>ID</TableCell>
@@ -71,7 +46,7 @@ const UserInput = ({input, remove }:Props) => {
                                 <TableCell width='35%'>Description</TableCell>
                                 <TableCell width='35%'>Comment</TableCell>
                                 </TableRow>
-                            </TableHead>
+                            </TableHead >
                             <TableBody>
                             <TableRow>
                                 <TableCell>{input.id}</TableCell>
@@ -80,15 +55,12 @@ const UserInput = ({input, remove }:Props) => {
                                 <TableCell>{input.comment}</TableCell>
                                 </TableRow>
                             </TableBody>
-                        </Table>
-                    </Popover>
+                        </TableRow>
+                    </Box>
+                </Modal>
             </TableRow>
         </>
     )
 }
 
-const mapStateToProps = (state : ApplicationState) => ({
-    selectedInput: state.inputs
-})
-  
-export default connect(mapStateToProps)(UserInput)
+export default UserInput

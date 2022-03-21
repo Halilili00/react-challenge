@@ -7,16 +7,7 @@ import { Iinputs } from "../Interface"
 import { ApplicationState } from '../reducer'
 import UserInput from './UserInput'
 import { deleteInput } from '../actions'
-import { makeStyles } from '@material-ui/core'
-
-const useStyles = makeStyles((theme) => ({
-  userInputTable: {
-    marginTop:'25px'
-  },
-  tableHeader: {
-    backgroundColor: '#ECECEC',
-  }
-}))
+import  useStyles  from '../styles.css'
 
 interface Props {
   allInputs: Iinputs[]
@@ -31,28 +22,28 @@ const UserInputTable = ({allInputs, dispatch}: Props) => {
 
   const classes = useStyles();
 
-    return(
-      <>
-        <Table size='medium' className={classes.userInputTable}>
-          <TableHead className={classes.tableHeader}>
-            <TableRow className={classes.tableHeaderRow}>
-              <TableCell variant='head'>Name</TableCell>
-              <TableCell variant='head'>Description</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody className='tableBody'>
-            {allInputs.map((input) => {
-              return <UserInput key={input.id} input={input} remove={remove}></UserInput>
-            })}
-          </TableBody>
-        </Table>
-      </>
-    )
+  return(
+    <>
+      <Table size='medium' className={classes.userInputTable}>
+        <TableHead className={classes.tableHeader}>
+          <TableRow className={classes.tableHeaderRow}>
+            <TableCell variant='head'>Name</TableCell>
+            <TableCell variant='head'>Description</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody className='tableBody'>
+          {allInputs.map((input) => {
+            return <UserInput key={input.id} input={input} remove={remove}></UserInput>
+          })}
+        </TableBody>
+      </Table>
+    </>
+  )
 }
 
 const mapStateToProps = (state : ApplicationState) => ({
-    allInputs: state.inputs
+  allInputs: state.inputs
 })
   
 export default connect(mapStateToProps)(UserInputTable)

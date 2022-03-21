@@ -1,6 +1,6 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
-import { Provider, useDispatch } from 'react-redux'
+import { Provider} from 'react-redux'
 import { createStore } from 'redux'
 import { Container } from '@mui/material'
 
@@ -12,7 +12,7 @@ import UserInputForm from './UserInputForm'
 
 const persistedState = localStorage.getItem('UserInputs') 
                        ? JSON.parse(localStorage.getItem('UserInputs')!)
-                       : {}
+                       : undefined
 const store = createStore(
   reducer,
   persistedState,
